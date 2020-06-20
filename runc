@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # NAME
-#	runc - compile & run C
+#	runc - compile and run C code
 
 # AUTHOR 
 #	Francois "alco" Alcover
@@ -14,39 +14,46 @@
 
 # EXAMPLES
 #	runc test.c
-#	runc hello.c bob
-#	runc 'printf("%s\n", "Hello bob!");'
+#	runc hello.c Bob
+#	runc 'printf("%s\n", "Hello Bob!");'
 
 #=====================================================
 
 CCFLAGS="\
 -std=c11 \
 -lm \
+-lc \
 -Wno-pedantic \
 -Wno-unused-variable \
 "
 
-# no args, usage
+OUTDIR=/tmp/runc
+
+# if no args, print usage
 if [ $# -eq 0 ]; then
     echo 'runc - compile and run C code'
     echo 'USAGE:    runc {FILE|STRING} [args]'
-	echo 'EXAMPLE:  runc hello.c bob'
-	echo "EXAMPLE:  runc 'printf(\"%s\n\", \"Hello bob!\");'"
+	echo 'EXAMPLE:  runc hello.c Bob'
+	echo "EXAMPLE:  runc 'printf(\"%s\n\", \"Hello Bob\");'"
     exit 1
 fi
 
+mkdir -p $OUTDIR
+
+# source is a file
 if [ -f "$1" ]; then
 
 	src=$1
-	exe="$src.runc.exe"
+	exe="$OUTDIR/$(basename $src).exe"
 	shift
 	args=$@
 
 else
 
+# source is a string
 code="$1"
-src='runc_generated.c'
-exe='runc_generated.exe'
+src="$OUTDIR/gen.c"
+exe="$OUTDIR/gen.exe"
 
 cat << EOF > "$src"
 #include <stdlib.h>
@@ -75,6 +82,6 @@ EOF
 
 fi
 
-gcc $CCFLAGS "$src" -o "$exe" && "./$exe" $args
+gcc $CCFLAGS "$src" -o "$exe" && "$exe" $args
 
 exit 0
