@@ -19,6 +19,26 @@
 
 #=====================================================
 
+HEADERS="\
+#include <stdlib.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <stdarg.h>
+#include <math.h>
+#include <inttypes.h>
+#include <complex.h>
+#include <float.h>
+#include <string.h>
+#include <limits.h>
+#include <ctype.h>
+#include <locale.h>
+#include <time.h>
+#include <assert.h>
+#include <errno.h>
+"
+
 CCFLAGS="\
 -std=c11 \
 -lm \
@@ -55,30 +75,23 @@ code="$1"
 src="$OUTDIR/gen.c"
 exe="$OUTDIR/gen.exe"
 
-cat << EOF > "$src"
-#include <stdlib.h>
-#include <stdio.h>
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <stdarg.h>
-#include <math.h>
-#include <inttypes.h>
-#include <complex.h>
-#include <float.h>
-#include <string.h>
-#include <limits.h>
-#include <ctype.h>
-#include <locale.h>
-#include <time.h>
-#include <assert.h>
-#include <errno.h>
-
+content="\
+$HEADERS
 int main (int argc, char **argv) {
 $code
 exit(EXIT_SUCCESS);
 }
-EOF
+"
+
+echo "$content" > "$src"
+
+# cat << EOF > "$src"
+# $HEADERS
+# int main (int argc, char **argv) {
+# $code
+# exit(EXIT_SUCCESS);
+# }
+# EOF
 
 fi
 
