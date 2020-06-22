@@ -1,5 +1,6 @@
 # runc
-## *Compile and run C in one command.*
+## *Compile and run C in one command.* 
+(Linux only)
 
 ### Want to quickly test some C ?  
 
