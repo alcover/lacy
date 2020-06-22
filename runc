@@ -60,24 +60,18 @@ norm=$(tput sgr0)
 
 runc_help="\
 runc - compile and run C code
-
 USAGE:    
-
 - run file :
 ${bold}runc hello.c [arg arg..]${norm}
-
 - run string :
 ${bold}runc 'printf(\"Hello!\");'${norm}
-
 - run prompt :
 ${bold}runc -i${norm}
 int i = 10;
 printf(\"%d\n\", i);
 [CTRL+D]
-
 - print template :
 ${bold}runc${norm}
-(ex: runc > newproject.c)
 "
 
 runc_tpl="\
