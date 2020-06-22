@@ -3,19 +3,26 @@
 # NAME
 #	runc - compile and run C code
 
-# AUTHOR 
-#	Francois Alcover
-
-# DESCRIPTION 
-#	Compiles and runs C source-file or code string 
-
 # SYNOPSIS
 #	runc SOURCE [ARGS]
+#	runc STRING
+#	runc [-i|-h]
+
+# DESCRIPTION 
+#	Compile and run C file or string,
+#	using sensible headers and gcc flags 
+#	
+#	Without arguments, prints C template.
+#	-i 	prompt mode. Submit with CTRL+D
+#	-h 	help
 
 # EXAMPLES
 #	runc test.c
 #	runc hello.c Bob
 #	runc 'printf("%s\n", "Hello Bob!");'
+
+# AUTHOR 
+#	Francois Alcover
 
 #=============================================================
 
