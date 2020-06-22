@@ -57,15 +57,12 @@ runc - compile and run C code
 USAGE:    
 
 - run file :
-${bold}runc hello.c${norm}
+${bold}runc hello.c [arg arg..]${norm}
 
-- run file + arguments :
-${bold}runc hello.c Bob${norm}
-
-- run code string :
+- run string :
 ${bold}runc 'printf(\"Hello!\");'${norm}
 
-- run code prompt :
+- run prompt :
 ${bold}runc -i${norm}
 int i = 10;
 printf(\"%d\n\", i);
