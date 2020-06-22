@@ -4,7 +4,7 @@
 #	runc - compile and run C code
 
 # AUTHOR 
-#	Francois "alco" Alcover
+#	Francois Alcover
 
 # DESCRIPTION 
 #	Compiles and runs C source-file or code string 
@@ -17,9 +17,9 @@
 #	runc hello.c Bob
 #	runc 'printf("%s\n", "Hello Bob!");'
 
-#=====================================================
+#=============================================================
 
-HEADERS="\
+runc_hd="\
 #include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
@@ -39,62 +39,95 @@ HEADERS="\
 #include <errno.h>
 "
 
-CCFLAGS="\
--std=c11 \
+# -lc : useful ?
+runc_flags="\
+-std=gnu11 \
 -lm \
--lc \
 -Wno-pedantic \
 -Wno-unused-variable \
 "
 
-OUTDIR=/tmp/runc
+bold=$(tput bold)
+norm=$(tput sgr0)
 
-# if no args, print usage
+
+runc_help="\
+runc - compile and run C code
+
+USAGE:    
+
+- run file :
+${bold}runc hello.c${norm}
+
+- run file + arguments :
+${bold}runc hello.c Bob${norm}
+
+- run code string :
+${bold}runc 'printf(\"Hello!\");'${norm}
+
+- run code prompt :
+${bold}runc -i${norm}
+int i = 10;
+printf(\"%d\n\", i);
+[CTRL+D]
+
+- print template :
+${bold}runc${norm}
+(ex: runc > newproject.c)
+"
+
+runc_tpl="\
+$runc_hd
+int main (int argc, char **argv)
+{
+	@code
+	return 0;
+}
+"
+
+#=============================================================
+
+# no args, print template
 if [ $# -eq 0 ]; then
-    echo 'runc - compile and run C code'
-    echo 'USAGE:    runc {FILE|STRING} [args]'
-	echo 'EXAMPLE:  runc hello.c Bob'
-	echo "EXAMPLE:  runc 'printf(\"%s\n\", \"Hello Bob\");'"
-    exit 1
+	echo "${runc_tpl/@code/}"
+    exit 0
 fi
 
-mkdir -p $OUTDIR
+# help
+if 	[ "$1" == '-h' ] || [ "$1" == '--help' ]; then
+	echo "$runc_help"
+    exit 0
+fi
+
 
 # source is a file
 if [ -f "$1" ]; then
 
 	src=$1
-	exe="$OUTDIR/$(basename $src).exe"
+	exe="/tmp/$(basename $src)"
 	shift
 	args=$@
 
+# source is a string
 else
 
-# source is a string
-code="$1"
-src="$OUTDIR/gen.c"
-exe="$OUTDIR/gen.exe"
+	# interactive
+	if 	[ "$1" = '-i' ]; then
+		echo "Type your code then CTRL+D"
+		code=$(</dev/stdin)
 
-content="\
-$HEADERS
-int main (int argc, char **argv) {
-$code
-exit(EXIT_SUCCESS);
-}
-"
+	# runc 'printf()'
+	else
+		code="$1"
+	fi
 
-echo "$content" > "$src"
-
-# cat << EOF > "$src"
-# $HEADERS
-# int main (int argc, char **argv) {
-# $code
-# exit(EXIT_SUCCESS);
-# }
-# EOF
-
+	suff=$RANDOM
+	src="/tmp/runc_$suff.c"
+	exe="/tmp/runc_$suff"
+	echo -n "${runc_tpl/@code/$code}" > "$src"
+	echo "[saved to $src]"
 fi
 
-gcc $CCFLAGS "$src" -o "$exe" && "$exe" $args
+gcc $runc_flags "$src" -o "$exe" && "$exe" $args
 
 exit 0
