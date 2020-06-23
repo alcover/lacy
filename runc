@@ -61,15 +61,19 @@ norm=$(tput sgr0)
 runc_help="\
 runc - compile and run C code
 USAGE:    
+
 - run file :
 ${bold}runc hello.c [arg arg..]${norm}
+
 - run string :
 ${bold}runc 'printf(\"Hello!\");'${norm}
+
 - run prompt :
 ${bold}runc -i${norm}
 int i = 10;
 printf(\"%d\n\", i);
 [CTRL+D]
+
 - print template :
 ${bold}runc${norm}
 "
@@ -119,13 +123,11 @@ else
 		code="$1"
 	fi
 
-	suff=$RANDOM
-	src="/tmp/runc_$suff.c"
-	exe="/tmp/runc_$suff"
+	name=`mktemp -q`
+	src="$name.c"
+	exe="$name"
 	echo -n "${runc_tpl/@code/$code}" > "$src"
 	echo "[saved to $src]"
 fi
 
-gcc $runc_flags "$src" -o "$exe" && "$exe" $args
-
-exit 0
+gcc $runc_flags "$src" -o "$exe" && "$exe" $args && exit 0
