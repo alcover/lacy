@@ -23,7 +23,7 @@ printf("%d\n", i);
 ```
 
 Or prepare your snippet in a file and do :    
-`$ cat snippet.c | runc -i`
+`$ cat snip.c | runc -i`
 
 ### Need to run a self-contained source file (no linking) ?
 `$ runc hello.c [arg arg..]`  

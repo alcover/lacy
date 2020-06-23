@@ -19,3 +19,7 @@ echo
 # code='printf("%s\n", "Hello Bob!");'
 echo "> runc 'printf(\"%s\\\n\", \"Hello Bob\");'"
 ./runc 'printf("%s\n", "Hello Bob");'
+echo
+
+echo "> cat snip.c | runc -i"
+cat snip.c | runc -i
