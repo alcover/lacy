@@ -10,19 +10,20 @@
 *runc* will build a C file with classic headers  
 then compile and run it with sensible gcc flags.  
 
-### If you need to type many lines, use  
+If you need more space, use `runc -i`  
+
 `$ runc -i`  
 `$ int i = 10;`  
-`$ printf(\"%d\n\", i);`  
+`$ printf("%d\n", i);`  
 [CTRL+D]  
 `$ 10`
 
 
-### If you have a self-contained C file (no linking), use
+### Need to run a self-contained source file (no linking) ?
 `$ runc hello.c [arg arg..]`  
 
 
-### You want to make a C file from scratch ?
+### Want to start a new C project ?
 `$ runc > new_project.c`  
 
 ### Get help :
