@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # full file
-echo "$ runc full.c"
-./runc full.c
+echo "$ runc hello.c"
+./runc hello.c
 echo
 
 # full with args
-echo "$ runc full.c Bob"
-./runc full.c Bob
+echo "$ runc hello.c Bob"
+./runc hello.c Bob
 echo
 
 # inline
