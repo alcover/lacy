@@ -1,25 +1,32 @@
 #!/bin/sh
 
-echo "> runc -h"
-./runc -h
+# full file
+echo "$ runc full.c"
+./runc full.c
 echo
 
-echo "> runc"
+# full with args
+echo "$ runc full.c Bob"
+./runc full.c Bob
+echo
+
+# inline
+echo "$ runc 'printf(\"%s\\\n\", \"Hello\");'"
+./runc 'printf("%s\n", "Hello");'
+echo
+
+# snippet
+echo "$ cat snip.c | runc"
+cat snip.c | ./runc
+echo
+
+# template
+echo "$ runc > new.c"
+./runc > new.c
+cat new.c
+echo
+
+# prompt
+echo "$ runc"
 ./runc
 echo
-
-echo "> runc hello.c"
-./runc hello.c
-echo
-
-echo "> runc hello.c Bob"
-./runc hello.c Bob
-echo
-
-# code='printf("%s\n", "Hello Bob!");'
-echo "> runc 'printf(\"%s\\\n\", \"Hello Bob\");'"
-./runc 'printf("%s\n", "Hello Bob");'
-echo
-
-echo "> cat snip.c | runc -i"
-cat snip.c | runc -i
