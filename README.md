@@ -1,5 +1,4 @@
-# runc
-## *Compile and run C.* 
+# runc - *Compile and run C.* 
 (Linux only)
 
 ### Want to quickly test some C ?  
@@ -12,7 +11,7 @@ Hello!
 *runc* will generate a C source-file with classic headers  
 then compile and run with sensible gcc flags.  
 
-If you need more space, use prompt-mode `runc`  
+Need more space ? Use prompt-mode :  
 
 ```
 $ runc
@@ -23,14 +22,14 @@ printf("%d\n", i);
 ```
 
 Or prepare your snippet in a file then pipe it :    
-`$ cat snip.c | runc`
+`$ cat snippet.c | runc`
 
 ### Want to run a self-contained file (with headers and main) ?
 `$ runc hello.c [args..]`  
 
 
 ### Want to start a new C project ?
-`$ runc > new_project.c`  
+`$ runc > new.c`  
 
 ### Get help :
 `$ runc -h`  

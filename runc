@@ -16,6 +16,7 @@
 #	[2] an inline string of C statements
 #	[3] a stream of C statements
 # 	ARGUMENTS are command-line arguments to the compiled program.
+# 	OPTIONS -h help, -v version
 
 # EXAMPLES
 #	[1] runc foo.c
@@ -70,7 +71,7 @@ int main (int argc, char **argv)
 }"
 
 # -lc ?
-runc_flags="-std=gnu11 -lm -Wno-pedantic -Wno-unused-variable -O1"
+runc_flags="-std=gnu11 -lm -Wno-pedantic -Wno-unused-variable"
 
 bold=$(tput bold)
 norm=$(tput sgr0)
@@ -161,6 +162,6 @@ if [ -z "$src" ]; then
 	echo -n "${runc_tpl/@code/$code}" > "$src"
 fi
 
-gcc "$runc_flags" "$src" -o "$exe" \
+gcc $runc_flags "$src" -o "$exe" \
 && "$exe" "$args" \
 && exit 0
