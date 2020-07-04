@@ -70,12 +70,7 @@ int main (int argc, char **argv)
 }"
 
 # -lc ?
-runc_flags="\
--std=gnu11 \
--lm \
--Wno-pedantic \
--Wno-unused-variable \
-"
+runc_flags="-std=gnu11 -lm -Wno-pedantic -Wno-unused-variable -O1"
 
 bold=$(tput bold)
 norm=$(tput sgr0)
@@ -92,7 +87,7 @@ ${bold}$ cat snip.c | runc${norm}
 - run prompt (enter your statements) :
 ${bold}$ runc${norm}
 int i = 10;
-printf(\"%d\n\", i);
+printf(\"%d\\n\", i);
 [CTRL+D]
 ${bold}$ 10${norm}
 
@@ -101,6 +96,9 @@ ${bold}$ runc 'printf(\"Hello!\");'${norm}
 
 - easy start new C project :
 ${bold}$ runc > new.c${norm}
+
+- get version :
+${bold}$ runc -v${norm}
 "
 
 
@@ -131,8 +129,14 @@ if [ $# -eq 0 ]; then
 else
 
 	# help
-	if 	[ "$1" = '-h' -o "$1" = '--help' ]; then
+	if 	[ "$1" = '-h' ] || [ "$1" = '--help' ]; then
 		echo "$runc_help"
+		exit 0
+	fi
+
+	# version
+	if 	[ "$1" = '-v' ]; then
+		echo "$RUNC_VERSION"
 		exit 0
 	fi
 
@@ -146,10 +150,10 @@ else
 	fi
 
 	shift
-	args=$@
+	args=$*
 fi
 
-name=`mktemp -q`
+name=$(mktemp -q)
 exe="$name"
 
 if [ -z "$src" ]; then
@@ -157,6 +161,6 @@ if [ -z "$src" ]; then
 	echo -n "${runc_tpl/@code/$code}" > "$src"
 fi
 
-gcc $runc_flags "$src" -o "$exe" \
-&& "$exe" $args \
+gcc "$runc_flags" "$src" -o "$exe" \
+&& "$exe" "$args" \
 && exit 0
