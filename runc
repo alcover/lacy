@@ -33,12 +33,12 @@
 
 #=============================================================
 
-RUNC_VERSION='0.2'
-
 # strict mode
 set -e
 set -u
 set -o pipefail
+
+runc_version='0.2'
 
 runc_headers="\
 #include <stdlib.h>
@@ -104,7 +104,7 @@ ${bold}$ runc -v${norm}
 
 #=============================================================
 
-src=''
+srcpath=''
 code=''
 args=''
 
@@ -112,12 +112,13 @@ args=''
 if [ $# -eq 0 ]; then
 
 	if [[ -t 0 ]]; then
-		# echo "term in"
+		# term in
 		if [[ -t 1 ]]; then
-			# stdout is term : $ runc
+			# term out
 			echo "(Help : runc -h)"
 			echo "Enter lines of code then hit CTRL+D :"
 		else
+			# print template
 			echo -n "${runc_tpl/@code/}"
 	    	exit 0
 	    fi
@@ -136,15 +137,18 @@ else
 
 	# version
 	if 	[ "$1" = '-v' ]; then
-		echo "$RUNC_VERSION"
+		echo "$runc_version"
 		exit 0
 	fi
 
-	# source is a file
 	if [ -f "$1" ]; then
-		src=$1
-
-	# source is a string
+		# source is a file
+		if grep -P -q '(int|void)\s+main' "$1"; then
+			# self-standing
+			srcpath=$1
+		else
+			code=$(<"$1")
+		fi
 	else
 		code="$1"
 	fi
@@ -153,14 +157,25 @@ else
 	args=$*
 fi
 
-name=$(mktemp -q)
-exe="$name"
+tmp=$(mktemp -q)
 
-if [ -z "$src" ]; then
-	src="$name.c"
-	echo -n "${runc_tpl/@code/$code}" > "$src"
+if [ -z "$srcpath" ]; then
+
+	srcpath="$tmp.c"
+	
+	# if no main(), wrap in template
+	hasmain=false
+	echo "$code" | grep -P -q '(int|void)\s+main' && hasmain=true
+	if ! $hasmain; then
+		code=${runc_tpl/@code/$code}
+		# echo "$code"
+	fi
+	
+	echo -n "$code" > "$srcpath"
 fi
 
-gcc $runc_flags "$src" -o "$exe" \
-&& "$exe" "$args" \
+exepath="$tmp"
+
+gcc $runc_flags "$srcpath" -o "$exepath" \
+&& "$exepath" "$args" \
 && exit 0

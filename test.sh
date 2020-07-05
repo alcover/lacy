@@ -1,32 +1,23 @@
 #!/bin/sh
 
-# full file
-echo "$ runc hello.c"
-./runc hello.c
-echo
+testf(){
+	echo "$1"
+	eval $1
+	echo
+}
 
-# full with args
-echo "$ runc hello.c Bob"
-./runc hello.c Bob
-echo
+testf './runc hello.c'
+testf './runc hello.c Bob'
+testf './runc snip.c'
 
-# inline
-echo "$ runc 'printf(\"%s\\\n\", \"Hello\");'"
-./runc 'printf("%s\n", "Hello");'
-echo
+testf 'cat hello.c | ./runc'
+testf 'cat snip.c | ./runc'
 
-# snippet
-echo "$ cat snip.c | runc"
-cat snip.c | ./runc
-echo
+testf "./runc 'printf(\"%s\\n\", \"Hello\");'"
 
-# template
-echo "$ runc > new.c"
-./runc > new.c
+testf './runc > new.c'
+echo "new.c :"
 cat new.c
 echo
 
-# prompt
-echo "$ runc"
-./runc
-echo
+testf './runc'
