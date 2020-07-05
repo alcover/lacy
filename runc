@@ -168,7 +168,6 @@ if [ -z "$srcpath" ]; then
 	echo "$code" | grep -P -q '(int|void)\s+main' && hasmain=true
 	if ! $hasmain; then
 		code=${runc_tpl/@code/$code}
-		# echo "$code"
 	fi
 	
 	echo -n "$code" > "$srcpath"

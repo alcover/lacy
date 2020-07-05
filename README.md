@@ -1,34 +1,50 @@
 # runc - *Compile and run C.* 
 (Linux only)
 
-### Inline :
+*runc* takes C code, compiles it with gcc, then runs it.  
 
+If your code has no *main()*, runc treats it as *main*'s body  
+and adds classic headers like *stdlib*, *stdio*, etc.
+
+## Input modes
+
+### File :
 ```
-$ runc 'printf("%s\n", "Hello!");'  
+$ runc hello.c  
+Hello!
+```  
+
+### File + arguments :
+```
+$ runc hello.c Bob    
+Hello Bob!
+```
+
+### Pipe :    
+```
+$ cat hello.c | runc  
 Hello!
 ```
 
-*runc* will generate a C source-file with classic headers  
-then compile and run with sensible gcc flags.  
-
 ### Prompt :  
-
 ```
 $ runc  
 int i = 10;  
 printf("%d\n", i);  
 [CTRL+D]  
-$ 10
+10
 ```
 
-### Pipe :    
-`$ cat snippet.c | runc`
+### Inline :
+```
+$ runc 'printf("%s\n", "Hello!");'  
+Hello!
+```
 
-### Self-contained (already has headers and main) :
-`$ runc hello.c [args..]`  
-
-### Easy project start :
+### No input = Print template :
+(useful to start a C project!)  
 `$ runc > new.c`  
 
-### Help :
-`$ runc -h`  
+## Options
+
+### Help : `$ runc -h`  
