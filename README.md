@@ -1,19 +1,45 @@
 ![logo](logo.png)
 
-# shellc - *Compile and run C.* 
+# shellc - *Compile & run C in a single command.* 
 (Linux only)
 
-Takes your C code, compiles it with `gcc`, then runs.
+Want to quickly run a few lines of C ?  
 
-Useful to test a bit of C without having to remember and  
-type the typical `#include <stdfoo.h>` and the gcc flags.   
+Normally you'd have to :  
+- create & open `foo.c`  
+- write headers `#include <stdfoo.h> #include <stdbar.h>...`    
+- write entry-point holding your code  
+```  
+int main(int argc ...) {
+	int i = 3*4;  
+	printf("%d\n", i);
+ 	return 0;
+}
+```  
+- save  
+- type & run something like `gcc foo.c -Wall -Wbar && ./a.out`  
 
-The source is a complete C file or only statements.  
-In that case, **shellc** adds classic headers and puts your statements into `main()`.
+Forgot a header ? To link math (`-lm`) ? No luck..  
+
+Now with **shellc** you just do :  
+```
+$ shellc  
+int i = 3*4;  
+printf("%d\n", i);  
+[CTRL+D]  
+```
+And you get :  
+`12`
+  
+
+**shellc** can also run a C file.  
+`$ shellc hello.c`  
+
+If your code has no `main()`, **shellc** will add classic headers and put your statements into `main()`.
 
 ## Usage
 
-### File :
+#### File :
 ```
 $ shellc hello.c  
 Hello!
