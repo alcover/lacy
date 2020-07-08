@@ -1,3 +1,5 @@
+![logo](logo.png)
+
 # shellc - *Compile and run C.* 
 (Linux only)
 
