@@ -1,23 +1,27 @@
 #!/bin/sh
 
-testf(){
+app=runc
+
+unit(){
 	echo "$1"
 	eval $1
 	echo
 }
 
-testf './runc hello.c'
-testf './runc hello.c Bob'
-testf './runc snip.c'
+unit "./$app hello.c"
+unit "./$app hello.c Bob"
+unit "./$app snip.c"
 
-testf 'cat hello.c | ./runc'
-testf 'cat snip.c | ./runc'
+unit "cat hello.c | ./$app"
+unit "cat snip.c | ./$app"
 
-testf "./runc 'printf(\"%s\\n\", \"Hello\");'"
+unit "./$app 'printf(\"%s\\n\", \"Hello\");'"
 
-testf './runc > new.c'
-echo "new.c :"
+unit "./$app > new.c"
 cat new.c
 echo
 
-testf './runc'
+unit "./$app -h"
+unit "./$app -v"
+
+unit "./$app"
