@@ -1,6 +1,6 @@
 ![logo](logo.png)
 
-# shellc - *Compile & run C in a single command.* 
+# lacy - *Compile-run for the lazy.* 
 (Linux only)
 
 Want to quickly run a few lines of C ?  
@@ -21,9 +21,9 @@ int main(int argc ...) {
 
 Forgot a header ? To link math (`-lm`) ? No luck..  
 
-Now with **shellc** you just do :  
+Now with **lacy** you just do :  
 ```
-$ shellc  
+$ lacy  
 int i = 3*4;  
 printf("%d\n", i);  
 [CTRL+D]  
@@ -32,34 +32,34 @@ And you get :
 `12`
   
 
-**shellc** can also run a C file.  
-`$ shellc hello.c`  
+**lacy** can also run a C file.  
+`$ lacy hello.c`  
 
-If your code has no `main()`, **shellc** will add classic headers and put your statements into `main()`.
+If your code has no `main()`, **lacy** will add classic headers and put your statements into `main()`.
 
 ## Usage
 
 #### File :
 ```
-$ shellc hello.c  
+$ lacy hello.c  
 Hello!
 ```  
 
 #### File + arguments :
 ```
-$ shellc hello.c Bob    
+$ lacy hello.c Bob    
 Hello Bob!
 ```
 
 #### Pipe :    
 ```
-$ cat hello.c | shellc  
+$ cat hello.c | lacy  
 Hello!
 ```
 
 #### Prompt :  
 ```
-$ shellc  
+$ lacy  
 int i = 10;  
 printf("%d\n", i);  
 [CTRL+D]  
@@ -68,15 +68,15 @@ printf("%d\n", i);
 
 #### Inline :
 ```
-$ shellc 'printf("%s\n", "Hello!");'  
+$ lacy 'printf("%s\n", "Hello!");'  
 Hello!
 ```
 
 #### Print template :
-`$ shellc > new.c`  
+`$ lacy > new.c`  
 (avoids typing boilerplate)  
 
 ## Options
 
-`$ shellc -h`    (help)  
-`$ shellc -v`    (version)
+`$ lacy -h`    (help)  
+`$ lacy -v`    (version)

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-app=shellc
+app=lacy
 
 unit(){
 	echo "$1"
@@ -17,9 +17,9 @@ unit "cat snip.c | ./$app"
 
 unit "./$app 'printf(\"%s\\n\", \"Hello\");'"
 
-unit "./$app > new.c"
-cat new.c
-echo
+# unit "./$app > new.c"
+# cat new.c
+# echo
 
 unit "./$app -h"
 unit "./$app -v"

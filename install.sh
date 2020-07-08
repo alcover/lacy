@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-app=shellc
+app=lacy
 
 echo "$app installer"
 echo "will make '$app' command accessible from anywhere in your home."
