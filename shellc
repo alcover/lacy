@@ -1,42 +1,42 @@
 #!/usr/bin/env bash
 
-# runc - Compile and run C
+# shellc - Compile and run C
 # 
 # Takes your C code, compiles it with gcc, then runs.
 # The source is a complete C file or only statements.
-# In that case, runc adds classic headers and puts your statements into main().
+# In that case, shellc adds classic headers and puts your statements into main().
 # 
 # USAGE
 # 
 # File :
-# $ runc hello.c
+# $ shellc hello.c
 # Hello!
 # 
 # File + args :
-# $ runc hello.c Bob
+# $ shellc hello.c Bob
 # Hello Bob!
 # 
 # Pipe :
-# $ cat hello.c | runc
+# $ cat hello.c | shellc
 # Hello!
 # 
 # Prompt :
-# $ runc
+# $ shellc
 # int i = 10;
 # printf("%d\n", i);
 # [CTRL+D]
 # 10
 # 
 # Inline :
-# $ runc 'printf("%s\n", "Hello!");'
+# $ shellc 'printf("%s\n", "Hello!");'
 # Hello!
 # 
 # Print template :
-# $ runc > new.c
+# $ shellc > new.c
 # (avoids typing boilerplate)
 # 
-# $ runc -h (help)
-# $ runc -v (version)
+# $ shellc -h (help)
+# $ shellc -v (version)
 # 
 # AUTHOR : Francois Alcover
 
@@ -47,7 +47,7 @@ set -e
 set -u
 set -o pipefail
 
-app=runc
+app=shellc
 runc_version='0.2'
 
 runc_headers="\
@@ -92,7 +92,7 @@ $app - compile and run C
 
 Takes your C code, compiles it with gcc, then runs.
 The source is a complete C file or only statements.
-In that case, runc adds classic headers and puts your statements into main().
+In that case, $app adds classic headers and puts your statements into main().
 
 Usage:    
 

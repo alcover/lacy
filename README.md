@@ -1,34 +1,34 @@
-# runc - *Compile and run C.* 
+# shellc - *Compile and run C.* 
 (Linux only)
 
 Takes your C code, compiles it with `gcc`, then runs.  
 
 The source is a complete C file or only statements.  
-In that case, **runc** adds classic headers and puts your statements into `main()`.
+In that case, **shellc** adds classic headers and puts your statements into `main()`.
 
 ## Usage
 
 ### File :
 ```
-$ runc hello.c  
+$ shellc hello.c  
 Hello!
 ```  
 
 #### File + arguments :
 ```
-$ runc hello.c Bob    
+$ shellc hello.c Bob    
 Hello Bob!
 ```
 
 #### Pipe :    
 ```
-$ cat hello.c | runc  
+$ cat hello.c | shellc  
 Hello!
 ```
 
 #### Prompt :  
 ```
-$ runc  
+$ shellc  
 int i = 10;  
 printf("%d\n", i);  
 [CTRL+D]  
@@ -37,15 +37,15 @@ printf("%d\n", i);
 
 #### Inline :
 ```
-$ runc 'printf("%s\n", "Hello!");'  
+$ shellc 'printf("%s\n", "Hello!");'  
 Hello!
 ```
 
 #### Print template :
-`$ runc > new.c`  
+`$ shellc > new.c`  
 (avoids typing boilerplate)  
 
 ## Options
 
-`$ runc -h`    (help)  
-`$ runc -v`    (version)
+`$ shellc -h`    (help)  
+`$ shellc -v`    (version)

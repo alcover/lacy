@@ -1,6 +1,6 @@
 #!/bin/sh
 
-app=runc
+app=shellc
 
 unit(){
 	echo "$1"
