@@ -1,4 +1,4 @@
-![logo](logo.png)
+![logo](assets/logo.png)
 
 # lacy - *Compile/run for the lazy*
 
