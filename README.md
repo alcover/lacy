@@ -7,7 +7,7 @@
 Want to quickly test a few lines of C ?  
 
 Normally you'd have to :  
-- create & open `foo.c`  
+- create `test.c`  
 - write headers `#include <stdfoo.h> #include <stdbar.h>...`    
 - write entry-point holding your code  
 ```  
@@ -18,7 +18,7 @@ int main (int argc ...) {
 }
 ```  
 - save  
-- type & run something like `gcc foo.c -Wall -Wbar && ./a.out`  
+- type & run something like `gcc test.c -Wall -Wbar && ./a.out`  
 
 Forgot a header ? To link math (`-lm`) ? No luck..  
 
@@ -32,7 +32,6 @@ printf ("%d\n", i);
 And you get :  
 `12`
   
-
 **lacy** can also run a C file.  
 `$ lacy hello.c`  
 
@@ -74,8 +73,7 @@ Hello!
 ```
 
 #### Print template :
-`$ lacy > new.c`  
-(avoids typing boilerplate)  
+`$ lacy > new_project.c`    (gives you a fresh all-included source)  
 
 ## Options
 
