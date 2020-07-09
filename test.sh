@@ -8,17 +8,17 @@ unit(){
 	echo
 }
 
-unit "./$app hello.c"
-unit "./$app hello.c Bob"
-unit "./$app snip.c"
+unit "./$app test/hello.c"
+unit "./$app test/hello.c Bob"
+unit "./$app test/snip.c"
 
-unit "cat hello.c | ./$app"
-unit "cat snip.c | ./$app"
+unit "cat test/hello.c | ./$app"
+unit "cat test/snip.c | ./$app"
 
 unit "./$app 'printf(\"%s\\n\", \"Hello\");'"
 
-# unit "./$app > new.c"
-# cat new.c
+# unit "./$app > /tmp/new.c"
+# cat /tmp/new.c
 # echo
 
 unit "./$app -h"
