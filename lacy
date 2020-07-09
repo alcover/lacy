@@ -3,8 +3,9 @@
 # lacy - Compile and run C
 # 
 # Takes your C code, compiles it with gcc, then runs.
-# The source is a complete C file or only statements.
-# In that case, lacy adds classic headers and puts your statements into main().
+# The source can be a complete C file or just statements.
+# In that case, lacy adds classic headers 
+# and puts your statements into main().
 # 
 # USAGE
 # 

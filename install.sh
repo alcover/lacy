@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# home/bin installer
+# author: alco
+
 app=lacy
 
 echo "$app installer"

@@ -1,19 +1,20 @@
 ![logo](logo.png)
 
-# lacy - *Compile-run for the lazy.* 
+# lacy - *Compile/run for the lazy*
+
 (Linux only)
 
-Want to quickly run a few lines of C ?  
+Want to quickly test a few lines of C ?  
 
 Normally you'd have to :  
 - create & open `foo.c`  
 - write headers `#include <stdfoo.h> #include <stdbar.h>...`    
 - write entry-point holding your code  
 ```  
-int main(int argc ...) {
-	int i = 3*4;  
-	printf("%d\n", i);
- 	return 0;
+int main (int argc ...) {
+    int i = 3*4;  
+    printf ("%d\n", i);
+    return 0;
 }
 ```  
 - save  
@@ -25,7 +26,7 @@ Now with **lacy** you just do :
 ```
 $ lacy  
 int i = 3*4;  
-printf("%d\n", i);  
+printf ("%d\n", i);  
 [CTRL+D]  
 ```
 And you get :  
