@@ -23,7 +23,7 @@ $ lacy
 int i = pow(2,8);  
 printf ("%d\n", i);  
 [CTRL+D]  
-$ 256
+256
 ```
   
 **lacy** can also run files.  

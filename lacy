@@ -19,7 +19,6 @@
 # 
 # Pipe :
 # $ cat hello.c | lacy
-# Hello!
 # 
 # Prompt :
 # $ lacy
@@ -30,11 +29,9 @@
 # 
 # Inline :
 # $ lacy 'printf("%s\n", "Hello!");'
-# Hello!
 # 
-# Print template :
-# $ lacy > new.c
-# (avoids typing boilerplate)
+# Reuse template :
+# $ lacy > new_project.c
 # 
 # $ lacy -h (help)
 # $ lacy -v (version)
