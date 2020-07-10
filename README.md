@@ -4,38 +4,32 @@
 
 (Linux only)
 
-Want to quickly test a few lines of C ?  
+Want to test a few lines of C ?  
 
 Normally you'd have to :  
 - create `test.c`  
 - write headers `#include <stdfoo.h> #include <stdbar.h>...`    
-- write entry-point holding your code  
-```  
-int main (int argc ...) {
-    int i = 3*4;  
-    printf ("%d\n", i);
-    return 0;
-}
-```  
+- write entry-point `int main (int argc ...) {}`  
+- write your code
 - save  
-- type & run something like `gcc test.c -Wall -Wbar && ./a.out`  
+- finally run `gcc test.c -Wall -Wbar && ./a.out`  
 
-Forgot a header ? To link math (`-lm`) ? No luck..  
+Forgot a header ? To link math (`-lm`) ?  
+Bad luck... Now you have to edit `test.c`...      
 
-Now with **lacy** you just do :  
+No such hassle with **lacy** :  
 ```
 $ lacy  
-int i = 3*4;  
+int i = pow(2,8);  
 printf ("%d\n", i);  
 [CTRL+D]  
+$ 256
 ```
-And you get :  
-`12`
   
-**lacy** can also run a C file.  
+**lacy** can also run files.  
 `$ lacy hello.c`  
 
-If your code has no `main()`, **lacy** will add classic headers and put your statements into `main()`.
+If your code has no `main()`, **lacy** adds classic headers and puts your statements into `main()`.
 
 ## Usage
 
@@ -60,20 +54,19 @@ Hello!
 #### Prompt :  
 ```
 $ lacy  
-int i = 10;  
-printf("%d\n", i);  
+printf ("%s\n", "Hello!");  
 [CTRL+D]  
-10
+Hello!
 ```
 
 #### Inline :
 ```
-$ lacy 'printf("%s\n", "Hello!");'  
+$ lacy 'printf ("%s\n", "Hello!");'  
 Hello!
 ```
 
 #### Print template :
-`$ lacy > new_project.c`    (gives you a fresh all-included source)  
+`$ lacy > new_project.c`    (gets you a fresh all-included source)  
 
 ## Options
 
