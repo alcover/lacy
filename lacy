@@ -58,13 +58,15 @@ runc_headers="\
 #include <stdint.h>
 #include <stdbool.h>
 #include <stdarg.h>
+#include <string.h>
+#include <strings.h>
+#include <wchar.h>
 #include <math.h>
 #include <inttypes.h>
 #include <complex.h>
 #include <float.h>
-#include <string.h>
 #include <limits.h>
-#include <ctype.h>
+#include <regex.h>
 #include <locale.h>
 #include <time.h>
 #include <assert.h>
@@ -92,45 +94,37 @@ runc_help="\
 $app - compile and run C
 
 Takes your C code, compiles it with gcc, then runs.
-The source is a complete C file or only statements.
-In that case, $app adds classic headers and puts your statements into main().
+If the source has no 'main()' $app adds classic headers
+and a 'main()' holding your statements.
 
 Usage:    
 
-- COMPLETE FILE :
-//hello.c
-#include <stdio.h>
-void main() {
-    printf (\"%s\n\", "Hello!");
-}
-
+- File :
 ${bold}$ $app hello.c
-Hello!
-${norm}
+Hello!${norm}
 
-- STATEMENTS FILE :
-//stmts.c
-int i = 10;
-printf ("%d\n", i);
+- File + args :
+${bold}$ $app hello.c Bob
+Hello Bob!${norm}
 
-${bold}$ cat stmts.c | $app
-10
-${norm}
+- Pipe :
+${bold}$ cat hello.c | $app
+Hello!${norm}
 
-- PROMPT (enter statements then CTRL+D) :
+- Prompt (enter statements then CTRL+D) :
 ${bold}$ $app${norm}
 int i = 10;
 printf (\"%d\n\", i);
 [CTRL+D]
-${bold}$ 10${norm}
+10
 
-- INLINE :
+- Inline :
 ${bold}$ $app 'printf(\"Hello!\");'${norm}
 
-- PRINT TEMPLATE :
-${bold}$ $app > new.c${norm}
+- Get nice template :
+${bold}$ $app > new_project.c${norm}
 
-- get version :
+- Get version :
 ${bold}$ $app -v${norm}
 "
 
